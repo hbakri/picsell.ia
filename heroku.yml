@@ -3,5 +3,5 @@ build:
     django: backend/Dockerfile
     react: frontend/Dockerfile
 run:
-  django: python3 backend/manage.py runserver 0.0.0.0:$PORT
-  react: npm start
+  django: python3 manage.py runserver 0.0.0.0:8000
+  react: npm start --port $PORT
