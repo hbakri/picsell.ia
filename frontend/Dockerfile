@@ -10,13 +10,5 @@ ADD . $APP_DIRECTORY
 # Download all the packages.
 ADD ./package.json $APP_DIRECTORY
 ADD ./yarn.lock $APP_DIRECTORY
-RUN npm install express
-RUN npm init -y
-
-# Useful for making the http request.
-RUN npm install axios
-
-# UI.
-RUN npm install react-scripts@3.4.1 -g 
-RUN npm install @rpldy/uploady @rpldy/upload-drop-zone
-RUN npm install styled-components
+RUN npm install --silent
+RUN npm install react-scripts@3.4.1 -g --silent
