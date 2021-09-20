@@ -1,6 +1,7 @@
 .PHONY: build
 build:
 	@docker-compose build
+	@docker-compose run --rm react npm install @svgr/webpack
 
 .PHONY: migrations
 migrations:
