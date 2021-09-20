@@ -96,15 +96,17 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE'    : 'django.db.backends.postgresql',
-        'NAME'      : os.environ['POSTGRES_DB'],
-        'USER'      : os.environ['POSTGRES_USER'],
-        'PASSWORD'  : os.environ['POSTGRES_PASSWORD'],
-        'HOST'      : os.environ['POSTGRES_HOST'],
-        'PORT'      : os.environ['POSTGRES_PORT'],
-    }
+    # 'default': {
+    #     'ENGINE'    : 'django.db.backends.postgresql',
+    #     'NAME'      : os.environ['POSTGRES_DB'],
+    #     'USER'      : os.environ['POSTGRES_USER'],
+    #     'PASSWORD'  : os.environ['POSTGRES_PASSWORD'],
+    #     'HOST'      : os.environ['POSTGRES_HOST'],
+    #     'PORT'      : os.environ['POSTGRES_PORT'],
+    # }
 }
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
