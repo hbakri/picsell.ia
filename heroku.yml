@@ -1,0 +1,7 @@
+build:
+  docker:
+    django: backend/Dockerfile
+    react: frontend/Dockerfile
+run:
+  django: python3 backend/manage.py runserver 0.0.0.0:$PORT
+  react: npm start

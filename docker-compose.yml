@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+    postgres:
+        image: postgres:latest
+        container_name: postgres
+        environment:
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=user
+            - POSTGRES_PASSWORD=password
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgresql-data:/var/lib/postgresql/data
+
+    django:
+        build:
+            context: ./backend/
+            dockerfile: Dockerfile
+        image: django
+        container_name: django
+        command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+        environment:
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=user
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_HOST=postgres
+            - POSTGRES_PORT=5432
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
+        ports:
+            - "8000:8000"
+        depends_on:
+            - postgres
+        volumes:
+            - ./backend:/home/user/app/backend
+
+    react:
+        build:
+            context: ./frontend/
+            dockerfile: Dockerfile
+        container_name: react
+        command : ["npm", "start"]
+        ports:
+            - "3000:3000"
+        stdin_open: true
+        depends_on:
+            - django
+        volumes:
+            - ./frontend:/home/user/app/frontend
+
+volumes:
+    postgresql-data:
