@@ -1,13 +1,11 @@
 build:
   docker:
-    django: backend/Dockerfile
+    web_api: backend/Dockerfile
     web: frontend/Dockerfile
 run:
-  django: python3 manage.py runserver 0.0.0.0:8000
+  web_api: python3 manage.py runserver 0.0.0.0:8000
   web: npm start --port $PORT
 release:
   image: django
   command:
     - python manage.py collectstatic --noinput
-    - python manage.py makemigrations
-    - python manage.py migrate
